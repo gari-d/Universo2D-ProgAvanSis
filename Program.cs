@@ -1,15 +1,16 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Universo2D;
 
-namespace Universo2D_ProgAvanSis
+namespace Universo2D
 {
-    internal static class Program
+    static class Program
     {
         /// <summary>
-        /// Ponto de entrada principal para o aplicativo.
+        /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
