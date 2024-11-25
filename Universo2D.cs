@@ -46,7 +46,7 @@ namespace Universo2D
             //Caso a posição de inserção seja dentro da região dos corpos, substitui o corpo na posição
             if (pos < lstCorpos.Count())
             {
-                lstCorpos.ElementAt(pos).copiaCorpo(cp);
+                lstCorpos.ElementAt(pos).CopiaCorpo(cp);
             }
             else // Caso contrário, insere o corpo no final da região dos corpos
             {
@@ -63,8 +63,8 @@ namespace Universo2D
         {
             double b, c;
 
-            b = c1.getPosY() - c2.getPosY();
-            c = c1.getPosX() - c2.getPosX();
+            b = c1.PosY - c2.PosY;
+            c = c1.PosX - c2.PosX;
 
             return Math.Sqrt(Math.Pow(b, 2) + Math.Pow(c, 2));
         }
@@ -73,18 +73,18 @@ namespace Universo2D
         {
             double hipotenusa = distancia(c2, c1);
 
-            double catetoAdjacenteC1 = c2.getPosY() - c1.getPosY();
-            double catetoOpostoC1 = c2.getPosX() - c1.getPosX();
+            double catetoAdjacenteC1 = c2.PosY - c1.PosY;
+            double catetoOpostoC1 = c2.PosX - c1.PosX;
 
-            double forca = G * ((c1.getMassa() * c2.getMassa()) / (Math.Pow(hipotenusa, 2)));
+            double forca = G * ((c1.Massa * c2.Massa) / (Math.Pow(hipotenusa, 2)));
             double forcaY = catetoAdjacenteC1 * forca / hipotenusa;
             double forcaX = catetoOpostoC1 * forca / hipotenusa;
 
-            c1.setForcaX(c1.getForcaX() + forcaX);
-            c1.setForcaY(c1.getForcaY() + forcaY);
+            c1.ForcaX = (c1.ForcaX + forcaX);
+            c1.ForcaY = (c1.ForcaY + forcaY);
 
-            c2.setForcaX(c2.getForcaX() - forcaX);
-            c2.setForcaY(c2.getForcaY() - forcaY);
+            c2.ForcaX = (c2.ForcaX - forcaX);
+            c2.ForcaY = (c2.ForcaY - forcaY);
         }
 
         private bool colisao(Corpo c1, Corpo c2)
@@ -95,43 +95,43 @@ namespace Universo2D
             bool teveColisao = false;
 
             // Colisão somente caso a distância entre os corpos for menor ou igual à soma dos raios
-            if ((distancia(c1, c2)) <= (c1.getRaio() + c2.getRaio()))
+            if ((distancia(c1, c2)) <= (c1.Raio + c2.Raio))
             {
                 // Calcula a quantidade de movimento resultante -> P = m * v
                 teveColisao = true;
-                Px = (c1.getMassa() * c1.getVelX()) + (c2.getMassa() * c2.getVelX());
-                Py = (c1.getMassa() * c1.getVelY()) + (c2.getMassa() * c2.getVelY());
+                Px = (c1.Massa * c1.VelX) + (c2.Massa * c2.VelX);
+                Py = (c1.Massa * c1.VelY) + (c2.Massa * c2.VelY);
 
                 // Calcula a densidade resultante
-                d = ((c1.getMassa() * c1.getDensidade() + c2.getMassa() * c2.getDensidade()) /
-                     (c1.getMassa() + c2.getMassa()));
+                d = ((c1.Massa * c1.Densidade + c2.Massa * c2.Densidade) /
+                     (c1.Massa + c2.Massa));
 
                 // Caso haja colisão, o corpo de menor massa será engolido pelo de maior massa.
-                if (c1.getMassa() >= c2.getMassa())
+                if (c1.Massa >= c2.Massa)
                 {
-                    c1.setNome(c1.getNome() + c2.getNome());
-                    c1.setMassa(c1.getMassa() + c2.getMassa());
-                    c1.setDensidade(d);
+                    c1.Nome = (c1.Nome + c2.Nome);
+                    c1.Massa = (c1.Massa + c2.Massa);
+                    c1.Densidade = d;
 
                     // Calcula velocidade final do novo corpo
-                    c1.setVelX(Px / c1.getMassa());
-                    c1.setVelY(Py / c1.getMassa());
+                    c1.VelX = (Px / c1.Massa);
+                    c1.VelY = (Py / c1.Massa);
 
                     // Invalida o corpo 2, para retirá-lo da lista
-                    c2.setValido(false);
+                    c2.EValido = false;
                 }
                 else
                 {
-                    c2.setNome(c2.getNome() + c1.getNome());
-                    c2.setMassa(c2.getMassa() + c1.getMassa());
-                    c2.setDensidade(d);
+                    c2.Nome = (c2.Nome + c1.Nome);
+                    c2.Massa = (c2.Massa + c1.Massa);
+                    c2.Densidade = d;
 
                     // Calcula velocidade final do novo corpo
-                    c2.setVelX(Px / c2.getMassa());
-                    c2.setVelY(Py / c2.getMassa());
+                    c2.VelX = (Px / c2.Massa);
+                    c2.VelY = (Py / c2.Massa);
 
                     // Invalida o corpo 1, para retirá-lo da lista
-                    c1.setValido(false);
+                    c1.EValido = false;
 
                 }
             }
@@ -150,9 +150,7 @@ namespace Universo2D
             {
                 nome = "cp" + i;
                 massa = rd.Next(masIni, masFim);
-                lstCorpos.Add(new Corpo(nome, massa,
-                                              rd.Next(xIni, xFim), rd.Next(yIni, yFim), 0,
-                                              0, 0, 0, rd.Next(1, 255)));
+                lstCorpos.Add(new Corpo(nome, massa, rd.Next(xIni, xFim), rd.Next(yIni, yFim), 0, 0, 0, 0, rd.Next(1, 255)));
             }
         }
 
@@ -245,15 +243,15 @@ namespace Universo2D
             Corpo cp;
             for (int i = 0; i < u.qtdCorpos(); i++)
             {
-                cp = new Corpo(u.getCorpo(i).getNome(),
-                               u.getCorpo(i).getMassa(),
-                               u.getCorpo(i).getPosX(),
-                               u.getCorpo(i).getPosY(),
-                               u.getCorpo(i).getPosZ(),
-                               u.getCorpo(i).getVelX(),
-                               u.getCorpo(i).getVelY(),
-                               u.getCorpo(i).getVelZ(),
-                               u.getCorpo(i).getDensidade());
+                cp = new Corpo(u.getCorpo(i).Nome,
+                               u.getCorpo(i).Massa,
+                               u.getCorpo(i).PosX,
+                               u.getCorpo(i).PosY,
+                               u.getCorpo(i).PosZ,
+                               u.getCorpo(i).VelX,
+                               u.getCorpo(i).VelY,
+                               u.getCorpo(i).VelZ,
+                               u.getCorpo(i).Densidade);
                 this.setCorpo(cp, i);
             }
         }
@@ -263,9 +261,9 @@ namespace Universo2D
             for (int i = 0; i < qtdCorpos(); i++)
             {
                 // Zera as forças da interação
-                lstCorpos.ElementAt(i).setForcaX(0);
-                lstCorpos.ElementAt(i).setForcaY(0);
-                lstCorpos.ElementAt(i).setForcaZ(0);
+                lstCorpos.ElementAt(i).ForcaX = 0;
+                lstCorpos.ElementAt(i).ForcaY = 0;
+                lstCorpos.ElementAt(i).ForcaZ = 0;
             }
         }
 
@@ -274,14 +272,14 @@ namespace Universo2D
             double acelX;
             double acelY;
 
-            acelX = c1.getForcaX() / c1.getMassa();
-            acelY = c1.getForcaY() / c1.getMassa();
+            acelX = c1.ForcaX / c1.Massa;
+            acelY = c1.ForcaY / c1.Massa;
 
-            c1.setPosX(c1.getPosX() + (c1.getVelX() * qtdSegundos) + (acelX * Math.Pow(qtdSegundos, 2) / 2));
-            c1.setVelX(c1.getVelX() + (acelX * qtdSegundos));
+            c1.PosX = (c1.PosX + (c1.VelX * qtdSegundos) + (acelX * Math.Pow(qtdSegundos, 2) / 2));
+            c1.VelX = (c1.VelX + (acelX * qtdSegundos));
 
-            c1.setPosY(c1.getPosY() + (c1.getVelY() * qtdSegundos) + (acelY * Math.Pow(qtdSegundos, 2) / 2));
-            c1.setVelY(c1.getVelY() + (acelY * qtdSegundos));
+            c1.PosY = (c1.PosY + (c1.VelY * qtdSegundos) + (acelY * Math.Pow(qtdSegundos, 2) / 2));
+            c1.VelY = (c1.VelY + (acelY * qtdSegundos));
 
         }
 
@@ -291,7 +289,7 @@ namespace Universo2D
             int i;
             for (i = 0; i < qtdCorpos(); i++)
             {
-                if (!lstCorpos.ElementAt(i).getValido())
+                if (!lstCorpos.ElementAt(i).EValido)
                 {
                     lstCorpos.RemoveAt(i);
                 }
