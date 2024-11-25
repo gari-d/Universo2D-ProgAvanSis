@@ -1,4 +1,7 @@
-﻿namespace Universo2D
+﻿using System.Windows.Forms;
+using System.Drawing;
+
+namespace Universo2D
 {
     partial class Form1
     {

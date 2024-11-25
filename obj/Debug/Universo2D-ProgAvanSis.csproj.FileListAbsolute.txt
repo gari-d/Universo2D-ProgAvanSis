@@ -1,0 +1,10 @@
+C:\Users\mugiw\source\repos\Universo2D-ProgAvanSis\Universo2D-ProgAvanSis\obj\Debug\Universo2D-ProgAvanSis.csproj.AssemblyReference.cache
+C:\Users\mugiw\source\repos\Universo2D-ProgAvanSis\Universo2D-ProgAvanSis\obj\Debug\Universo2D.Form1.resources
+C:\Users\mugiw\source\repos\Universo2D-ProgAvanSis\Universo2D-ProgAvanSis\obj\Debug\Universo2D_ProgAvanSis.Properties.Resources.resources
+C:\Users\mugiw\source\repos\Universo2D-ProgAvanSis\Universo2D-ProgAvanSis\obj\Debug\Universo2D-ProgAvanSis.csproj.GenerateResource.cache
+C:\Users\mugiw\source\repos\Universo2D-ProgAvanSis\Universo2D-ProgAvanSis\obj\Debug\Universo2D-ProgAvanSis.csproj.CoreCompileInputs.cache
+C:\Users\mugiw\source\repos\Universo2D-ProgAvanSis\Universo2D-ProgAvanSis\bin\Debug\Universo2D-ProgAvanSis.exe.config
+C:\Users\mugiw\source\repos\Universo2D-ProgAvanSis\Universo2D-ProgAvanSis\bin\Debug\Universo2D-ProgAvanSis.exe
+C:\Users\mugiw\source\repos\Universo2D-ProgAvanSis\Universo2D-ProgAvanSis\bin\Debug\Universo2D-ProgAvanSis.pdb
+C:\Users\mugiw\source\repos\Universo2D-ProgAvanSis\Universo2D-ProgAvanSis\obj\Debug\Universo2D-ProgAvanSis.exe
+C:\Users\mugiw\source\repos\Universo2D-ProgAvanSis\Universo2D-ProgAvanSis\obj\Debug\Universo2D-ProgAvanSis.pdb
