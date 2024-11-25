@@ -1,182 +1,54 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Universo2D
 {
     public class Corpo
     {
-        private bool eValido;
-        private String nome;
-        private double massa;
-        private double densidade;
-        private double posX;
-        private double posY;
-        private double posZ;
-        private double velX;
-        private double velY;
-        private double velZ;
-        private double forcaX;
-        private double forcaY;
-        private double forcaZ;
+        public bool EValido { get; set; } = true;
+        public string Nome { get; set; } = "";
+        public double Massa { get; set; } = 0;
+        public double Densidade { get; set; } = 1;
+        public double PosX { get; set; } = 0;
+        public double PosY { get; set; } = 0;
+        public double PosZ { get; set; } = 0;
+        public double VelX { get; set; } = 0;
+        public double VelY { get; set; } = 0;
+        public double VelZ { get; set; } = 0;
+        public double ForcaX { get; set; } = 0;
+        public double ForcaY { get; set; } = 0;
+        public double ForcaZ { get; set; } = 0;
 
-        public Corpo()
-        {
-            this.eValido = true;
-            this.nome = "";
-            this.massa = 0;
-            this.densidade = 1;
-            this.posX = 0;
-            this.posY = 0;
-            this.posZ = 0;
-            this.velX = 0;
-            this.velY = 0;
-            this.velZ = 0;
-            this.forcaX = 0;
-            this.forcaY = 0;
-            this.forcaZ = 0;
-        }
+        public Corpo() { }
 
-        public Corpo(String n, double m, double pX, double pY, double pZ, double vX, double vY, double vZ, double d)
+        public Corpo(string n, double m, double pX, double pY, double pZ, double vX, double vY, double vZ, double d)
         {
-            this.eValido = true;
-            this.nome = n;
-            this.massa = m;
-            this.posX = pX;
-            this.posY = pY;
-            this.posZ = pZ;
-            this.velX = vX;
-            this.velY = vY;
-            this.velZ = vZ;
-            this.forcaX = 0;
-            this.forcaY = 0;
-            this.forcaZ = 0;
-            this.densidade = d;
-        }
-        public bool getValido()
-        {
-            return this.eValido;
-        }
-        public String getNome()
-        {
-            return this.nome;
-        }
-        public double getMassa()
-        {
-            return this.massa;
-        }
-        public double getPosX()
-        {
-            return this.posX;
-        }
-        public double getPosY()
-        {
-            return this.posY;
-        }
-        public double getPosZ()
-        {
-            return this.posZ;
-        }
-        public double getVelX()
-        {
-            return this.velX;
-        }
-        public double getVelY()
-        {
-            return this.velY;
-        }
-        public double getVelZ()
-        {
-            return this.velZ;
-        }
-        public double getForcaX()
-        {
-            return this.forcaX;
-        }
-        public double getForcaY()
-        {
-            return this.forcaY;
-        }
-        public double getForcaZ()
-        {
-            return this.forcaZ;
-        }
-        public double getDensidade()
-        {
-            return this.densidade;
-        }
-        public double getRaio()
-        {
-            double raio = Math.Pow((3 * Math.PI * this.massa) / (4 * this.densidade), ((double)1 / 3));
-
-            return raio / 5;
+            EValido = true;
+            Nome = n;
+            Massa = m;
+            PosX = pX;
+            PosY = pY;
+            PosZ = pZ;
+            VelX = vX;
+            VelY = vY;
+            VelZ = vZ;
+            ForcaX = 0;
+            ForcaY = 0;
+            ForcaZ = 0;
+            Densidade = d;
         }
 
-        public void setValido(bool v)
-        {
-            this.eValido = v;
-        }
-        public void setNome(string nome)
-        {
-            this.nome = nome;
-        }
-        public void setMassa(double m)
-        {
-            this.massa = m;
-        }
-        public void setPosX(double x)
-        {
-            this.posX = x;
-        }
-        public void setPosY(double y)
-        {
-            this.posY = y;
-        }
-        public void setPosZ(double z)
-        {
-            this.posZ = z;
-        }
-        public void setVelX(double x)
-        {
-            this.velX = x;
-        }
-        public void setVelY(double y)
-        {
-            this.velY = y;
-        }
-        public void setVelZ(double z)
-        {
-            this.velZ = z;
-        }
-        public void setForcaX(double forca)
-        {
-            this.forcaX = forca;
-        }
-        public void setForcaY(double forca)
-        {
-            this.forcaY = forca;
-        }
-        public void setForcaZ(double forca)
-        {
-            this.forcaZ = forca;
-        }
-        public void setDensidade(double dens)
-        {
-            this.densidade = dens;
-        }
+        public double Raio => Math.Pow((3 * Math.PI * Massa) / (4 * Densidade), 1.0 / 3) / 5;
 
-        public void copiaCorpo(Corpo cp)
+        public void CopiaCorpo(Corpo cp)
         {
-            this.nome = cp.getNome();
-            this.massa = cp.getMassa();
-            this.posX = cp.getPosX();
-            this.posY = cp.getPosY();
-            this.posZ = cp.getPosZ();
-            this.velX = cp.getVelX();
-            this.velY = cp.getVelY();
-            this.velZ = cp.getVelZ();
+            Nome = cp.Nome;
+            Massa = cp.Massa;
+            PosX = cp.PosX;
+            PosY = cp.PosY;
+            PosZ = cp.PosZ;
+            VelX = cp.VelX;
+            VelY = cp.VelY;
+            VelZ = cp.VelZ;
         }
-
     }
 }

@@ -108,18 +108,18 @@ namespace Universo2D
 
                             for (int j = 0; j < U.qtdCorpos(); j++)
                             {
-                                cp = U.getCorpo(j);
+                                cp = U.Corpo(j);
                                 if (cp != null)
                                 {
-                                    texto = cp.getNome() + ";"
-                                            + cp.getMassa() + ";"
-                                            + cp.getPosX() + ";"
-                                            + cp.getPosY() + ";"
-                                            + cp.getPosZ() + ";"
-                                            + cp.getVelX() + ";"
-                                            + cp.getVelY() + ";"
-                                            + cp.getVelZ() + ";"
-                                            + cp.getDensidade();
+                                    texto = cp.Nome + ";"
+                                            + cp.Massa + ";"
+                                            + cp.PosX + ";"
+                                            + cp.PosY + ";"
+                                            + cp.PosZ + ";"
+                                            + cp.VelX + ";"
+                                            + cp.VelY + ";"
+                                            + cp.VelZ + ";"
+                                            + cp.Densidade;
 
                                     sw.WriteLine(texto);
                                 }
@@ -153,11 +153,11 @@ namespace Universo2D
 
                 for (int i = 0; i < qtdCp; i++)
                 {
-                    cp = U.getCorpo(i);
+                    cp = U.Corpo(i);
                     if (cp != null)
                     {
-                        posX = cp.getPosX();
-                        posY = cp.getPosY();
+                        posX = cp.PosX;
+                        posY = cp.PosY;
 
                         // Busca os menores valores de X e Y para Deslocamento
                         if (posX < deslocX)
@@ -204,30 +204,30 @@ namespace Universo2D
                 // Desenha o corpo
                 for (int i = 0; i < qtdCp; i++)
                 {
-                    cp = U.getCorpo(i);
+                    cp = U.Corpo(i);
                     if (cp != null)
                     {
-                        posX = cp.getPosX() - deslocX;
-                        posY = cp.getPosY() - deslocY;
+                        posX = cp.PosX - deslocX;
+                        posY = cp.PosY - deslocY;
 
                         // Posição do corpo
-                        g.DrawEllipse(new Pen(Color.FromArgb((int)cp.getDensidade(), 0, 0)),
-                            (float)(posX - cp.getRaio()) / prop,
-                            (float)(posY - cp.getRaio()) / prop,
-                            (float)(cp.getRaio() * 2) / prop,
-                            (float)(cp.getRaio() * 2) / prop);
+                        g.DrawEllipse(new Pen(Color.FromArgb((int)cp.Densidade, 0, 0)),
+                            (float)(posX - cp.Raio) / prop,
+                            (float)(posY - cp.Raio) / prop,
+                            (float)(cp.Raio * 2) / prop,
+                            (float)(cp.Raio * 2) / prop);
 
                         // Barras das forças em X e Y
                         g.DrawLine(new Pen(Color.FromArgb(0, 0, 255)),
                             (float)(posX) / prop,
                             (float)(posY) / prop,
-                            (float)(posX + (cp.getForcaX() * 50)) / prop,
+                            (float)(posX + (cp.ForcaX() * 50)) / prop,
                             (float)(posY) / prop);
                         g.DrawLine(new Pen(Color.FromArgb(0, 0, 255)),
                             (float)posX / prop,
                             (float)posY / prop,
                             (float)(posX) / prop,
-                            (float)(posY + (cp.getForcaY() * 50)) / prop);
+                            (float)(posY + (cp.ForcaY() * 50)) / prop);
                     }
                 }
             }
@@ -257,18 +257,18 @@ namespace Universo2D
                     sw.WriteLine(U.qtdCorpos());
                     for (i = 0; i < U.qtdCorpos(); i++)
                     {
-                        cp = U.getCorpo(i);
+                        cp = U.Corpo(i);
                         if (cp != null)
                         {
-                            texto = cp.getNome() + ";"
-                                  + cp.getMassa() + ";"
-                                  + cp.getPosX() + ";"
-                                  + cp.getPosY() + ";"
-                                  + cp.getPosZ() + ";"
-                                  + cp.getVelX() + ";"
-                                  + cp.getVelY() + ";"
-                                  + cp.getVelZ() + ";"
-                                  + cp.getDensidade();
+                            texto = cp.Nome + ";"
+                                  + cp.Massa + ";"
+                                  + cp.PosX + ";"
+                                  + cp.PosY + ";"
+                                  + cp.PosZ + ";"
+                                  + cp.VelX + ";"
+                                  + cp.VelY + ";"
+                                  + cp.VelZ + ";"
+                                  + cp.Densidade;
 
                             sw.WriteLine(texto);
                         }
@@ -309,18 +309,18 @@ namespace Universo2D
                     sw.WriteLine(Uinicial.qtdCorpos());
                     for (i = 0; i < Uinicial.qtdCorpos(); i++)
                     {
-                        cp = Uinicial.getCorpo(i);
+                        cp = Uinicial.Corpo(i);
                         if (cp != null)
                         {
-                            texto = cp.getNome() + ";"
-                                  + cp.getMassa() + ";"
-                                  + cp.getPosX() + ";"
-                                  + cp.getPosY() + ";"
-                                  + cp.getPosZ() + ";"
-                                  + cp.getVelX() + ";"
-                                  + cp.getVelY() + ";"
-                                  + cp.getVelZ() + ";"
-                                  + cp.getDensidade();
+                            texto = cp.Nome + ";"
+                                  + cp.Massa + ";"
+                                  + cp.PosX + ";"
+                                  + cp.PosY + ";"
+                                  + cp.PosZ + ";"
+                                  + cp.VelX + ";"
+                                  + cp.VelY + ";"
+                                  + cp.VelZ + ";"
+                                  + cp.Densidade;
 
                             sw.WriteLine(texto);
                         }
@@ -368,7 +368,7 @@ namespace Universo2D
                                        Convert.ToDouble(valores[6]),
                                        Convert.ToDouble(valores[7]),
                                        Convert.ToDouble(valores[8]));
-                        U.setCorpo(cp, controle - 1);
+                        U.Corpo(cp, controle - 1);
                     }
                     else
                     {
@@ -456,7 +456,7 @@ namespace Universo2D
                                        Convert.ToDouble(valores[6]),
                                        Convert.ToDouble(valores[7]),
                                        Convert.ToDouble(valores[8]));
-                        U.setCorpo(cp, controle);
+                        U.Corpo(cp, controle);
                         controle++;
                     }
                 }
