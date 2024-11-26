@@ -1,7 +1,4 @@
-﻿using System.Windows.Forms;
-using System.Drawing;
-
-namespace Universo2D
+﻿namespace Universo2D
 {
     partial class Form1
     {
@@ -31,205 +28,364 @@ namespace Universo2D
         /// </summary>
         private void InitializeComponent()
         {
-            btn_aleatorio = new Button();
-            label2 = new Label();
-            qtdCorpos = new TextBox();
-            qtdInterac = new TextBox();
-            label4 = new Label();
-            label5 = new Label();
-            qtdTempoInterac = new TextBox();
-            btn_executa = new Button();
-            groupBox1 = new GroupBox();
-            label10 = new Label();
-            qtdCorposAtual = new TextBox();
-            btn_carregaSimulacao = new Button();
-            label8 = new Label();
-            label7 = new Label();
-            masMax = new TextBox();
-            masMin = new TextBox();
-            btn_grava_ini = new Button();
-            groupBox1.SuspendLayout();
-            SuspendLayout();
+            this.btn_aleatorio = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.qtdCorpos = new System.Windows.Forms.TextBox();
+            this.qtdInterac = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.qtdTempoInterac = new System.Windows.Forms.TextBox();
+            this.btn_executa = new System.Windows.Forms.Button();
+            this.btn_grava = new System.Windows.Forms.Button();
+            this.btn_carrega = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtProporcao = new System.Windows.Forms.TextBox();
+            this.btn_carregaSimulacao = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.masMax = new System.Windows.Forms.TextBox();
+            this.masMin = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.valYMax = new System.Windows.Forms.TextBox();
+            this.valXMax = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.btn_grava_ini = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.qtdCorposAtual = new System.Windows.Forms.TextBox();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.SuspendLayout();
             // 
             // btn_aleatorio
             // 
-            btn_aleatorio.Location = new Point(394, 67);
-            btn_aleatorio.Name = "btn_aleatorio";
-            btn_aleatorio.Size = new Size(75, 23);
-            btn_aleatorio.TabIndex = 8;
-            btn_aleatorio.Text = "Aleatório";
-            btn_aleatorio.UseVisualStyleBackColor = true;
-            btn_aleatorio.Click += button2_Click;
+            this.btn_aleatorio.Location = new System.Drawing.Point(350, 13);
+            this.btn_aleatorio.Name = "btn_aleatorio";
+            this.btn_aleatorio.Size = new System.Drawing.Size(75, 23);
+            this.btn_aleatorio.TabIndex = 8;
+            this.btn_aleatorio.Text = "Aleatório";
+            this.btn_aleatorio.UseVisualStyleBackColor = true;
+            this.btn_aleatorio.Click += new System.EventHandler(this.button2_Click);
             // 
             // label2
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(0, 71);
-            label2.Name = "label2";
-            label2.Size = new Size(71, 15);
-            label2.TabIndex = 1;
-            label2.Text = "Qtd. Corpos";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, -1);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(63, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Qtd. Corpos";
             // 
             // qtdCorpos
             // 
-            qtdCorpos.Location = new Point(-2, 86);
-            qtdCorpos.Name = "qtdCorpos";
-            qtdCorpos.Size = new Size(100, 23);
-            qtdCorpos.TabIndex = 1;
-            qtdCorpos.Text = "0";
+            this.qtdCorpos.Location = new System.Drawing.Point(0, 15);
+            this.qtdCorpos.Name = "qtdCorpos";
+            this.qtdCorpos.Size = new System.Drawing.Size(100, 20);
+            this.qtdCorpos.TabIndex = 1;
+            this.qtdCorpos.Text = "0";
             // 
             // qtdInterac
             // 
-            qtdInterac.Location = new Point(101, 87);
-            qtdInterac.Name = "qtdInterac";
-            qtdInterac.Size = new Size(100, 23);
-            qtdInterac.TabIndex = 2;
-            qtdInterac.Text = "0";
+            this.qtdInterac.Location = new System.Drawing.Point(106, 15);
+            this.qtdInterac.Name = "qtdInterac";
+            this.qtdInterac.Size = new System.Drawing.Size(100, 20);
+            this.qtdInterac.TabIndex = 2;
+            this.qtdInterac.Text = "0";
             // 
             // label4
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(100, 71);
-            label4.Name = "label4";
-            label4.Size = new Size(94, 15);
-            label4.TabIndex = 6;
-            label4.Text = "Num. Interações";
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(103, -1);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(85, 13);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Num. Interações";
             // 
             // label5
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(200, 67);
-            label5.Name = "label5";
-            label5.Size = new Size(146, 15);
-            label5.TabIndex = 7;
-            label5.Text = "Tempo entre interações (s)";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(209, -1);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(133, 13);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Tempo entre interações (s)";
             // 
             // qtdTempoInterac
             // 
-            qtdTempoInterac.Location = new Point(207, 86);
-            qtdTempoInterac.Name = "qtdTempoInterac";
-            qtdTempoInterac.Size = new Size(100, 23);
-            qtdTempoInterac.TabIndex = 3;
-            qtdTempoInterac.Text = "0";
+            this.qtdTempoInterac.Location = new System.Drawing.Point(212, 15);
+            this.qtdTempoInterac.Name = "qtdTempoInterac";
+            this.qtdTempoInterac.Size = new System.Drawing.Size(100, 20);
+            this.qtdTempoInterac.TabIndex = 3;
+            this.qtdTempoInterac.Text = "0";
             // 
             // btn_executa
             // 
-            btn_executa.Location = new Point(394, 38);
-            btn_executa.Name = "btn_executa";
-            btn_executa.Size = new Size(75, 23);
-            btn_executa.TabIndex = 9;
-            btn_executa.Text = "Executar";
-            btn_executa.UseVisualStyleBackColor = true;
-            btn_executa.Click += button1_Click;
+            this.btn_executa.Location = new System.Drawing.Point(431, 13);
+            this.btn_executa.Name = "btn_executa";
+            this.btn_executa.Size = new System.Drawing.Size(75, 23);
+            this.btn_executa.TabIndex = 9;
+            this.btn_executa.Text = "Executar";
+            this.btn_executa.UseVisualStyleBackColor = true;
+            this.btn_executa.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btn_grava
+            // 
+            this.btn_grava.Location = new System.Drawing.Point(431, 41);
+            this.btn_grava.Name = "btn_grava";
+            this.btn_grava.Size = new System.Drawing.Size(75, 23);
+            this.btn_grava.TabIndex = 11;
+            this.btn_grava.Text = "Gravar";
+            this.btn_grava.UseVisualStyleBackColor = true;
+            this.btn_grava.Click += new System.EventHandler(this.btn_grava_Click);
+            // 
+            // btn_carrega
+            // 
+            this.btn_carrega.Location = new System.Drawing.Point(350, 42);
+            this.btn_carrega.Name = "btn_carrega";
+            this.btn_carrega.Size = new System.Drawing.Size(75, 23);
+            this.btn_carrega.TabIndex = 10;
+            this.btn_carrega.Text = "Carregar";
+            this.btn_carrega.UseVisualStyleBackColor = true;
+            this.btn_carrega.Click += new System.EventHandler(this.btn_carrega_Click);
             // 
             // groupBox1
             // 
-            groupBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            groupBox1.BackColor = Color.Transparent;
-            groupBox1.Controls.Add(label10);
-            groupBox1.Controls.Add(qtdCorpos);
-            groupBox1.Controls.Add(qtdCorposAtual);
-            groupBox1.Controls.Add(btn_carregaSimulacao);
-            groupBox1.Controls.Add(label8);
-            groupBox1.Controls.Add(label7);
-            groupBox1.Controls.Add(masMax);
-            groupBox1.Controls.Add(masMin);
-            groupBox1.Controls.Add(btn_grava_ini);
-            groupBox1.Controls.Add(label2);
-            groupBox1.Controls.Add(btn_executa);
-            groupBox1.Controls.Add(qtdTempoInterac);
-            groupBox1.Controls.Add(label5);
-            groupBox1.Controls.Add(label4);
-            groupBox1.Controls.Add(qtdInterac);
-            groupBox1.Controls.Add(btn_aleatorio);
-            groupBox1.Location = new Point(12, 576);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(475, 157);
-            groupBox1.TabIndex = 12;
-            groupBox1.TabStop = false;
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.qtdCorposAtual);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.txtProporcao);
+            this.groupBox1.Controls.Add(this.btn_carregaSimulacao);
+            this.groupBox1.Controls.Add(this.groupBox2);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.masMax);
+            this.groupBox1.Controls.Add(this.masMin);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.valYMax);
+            this.groupBox1.Controls.Add(this.valXMax);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.progressBar1);
+            this.groupBox1.Controls.Add(this.btn_grava_ini);
+            this.groupBox1.Controls.Add(this.btn_carrega);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.btn_grava);
+            this.groupBox1.Controls.Add(this.btn_executa);
+            this.groupBox1.Controls.Add(this.qtdTempoInterac);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.qtdInterac);
+            this.groupBox1.Controls.Add(this.qtdCorpos);
+            this.groupBox1.Controls.Add(this.btn_aleatorio);
+            this.groupBox1.Location = new System.Drawing.Point(847, 584);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(507, 149);
+            this.groupBox1.TabIndex = 12;
+            this.groupBox1.TabStop = false;
             // 
-            // label10
+            // label9
             // 
-            label10.AutoSize = true;
-            label10.Location = new Point(0, 108);
-            label10.Name = "label10";
-            label10.Size = new Size(102, 15);
-            label10.TabIndex = 22;
-            label10.Text = "Qtd. Corpos Atual";
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(3, 73);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(56, 13);
+            this.label9.TabIndex = 21;
+            this.label9.Text = "Proporção";
             // 
-            // qtdCorposAtual
+            // txtProporcao
             // 
-            qtdCorposAtual.Location = new Point(0, 126);
-            qtdCorposAtual.Name = "qtdCorposAtual";
-            qtdCorposAtual.Size = new Size(100, 23);
-            qtdCorposAtual.TabIndex = 23;
-            qtdCorposAtual.Text = "0";
+            this.txtProporcao.Location = new System.Drawing.Point(4, 86);
+            this.txtProporcao.Name = "txtProporcao";
+            this.txtProporcao.Size = new System.Drawing.Size(100, 20);
+            this.txtProporcao.TabIndex = 20;
             // 
             // btn_carregaSimulacao
             // 
-            btn_carregaSimulacao.Location = new Point(313, 125);
-            btn_carregaSimulacao.Name = "btn_carregaSimulacao";
-            btn_carregaSimulacao.Size = new Size(156, 23);
-            btn_carregaSimulacao.TabIndex = 13;
-            btn_carregaSimulacao.Text = "Carregar Simulação";
-            btn_carregaSimulacao.UseVisualStyleBackColor = true;
-            btn_carregaSimulacao.Click += btn_carregaSimulacao_Click;
+            this.btn_carregaSimulacao.Location = new System.Drawing.Point(350, 93);
+            this.btn_carregaSimulacao.Name = "btn_carregaSimulacao";
+            this.btn_carregaSimulacao.Size = new System.Drawing.Size(156, 23);
+            this.btn_carregaSimulacao.TabIndex = 13;
+            this.btn_carregaSimulacao.Text = "Carregar Simulação";
+            this.btn_carregaSimulacao.UseVisualStyleBackColor = true;
+            this.btn_carregaSimulacao.Click += new System.EventHandler(this.btn_carregaSimulacao_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.radioButton1);
+            this.groupBox2.Controls.Add(this.radioButton2);
+            this.groupBox2.Controls.Add(this.radioButton3);
+            this.groupBox2.Location = new System.Drawing.Point(223, 112);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(291, 37);
+            this.groupBox2.TabIndex = 14;
+            this.groupBox2.TabStop = false;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(193, 12);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(86, 17);
+            this.radioButton1.TabIndex = 20;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Atualiza Tela";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(104, 12);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(83, 17);
+            this.radioButton2.TabIndex = 21;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "Background";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(12, 12);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(86, 17);
+            this.radioButton3.TabIndex = 13;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "Para Arquivo";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
             // 
             // label8
             // 
-            label8.AutoSize = true;
-            label8.Location = new Point(206, 112);
-            label8.Name = "label8";
-            label8.Size = new Size(110, 15);
-            label8.TabIndex = 19;
-            label8.Text = "Massa Máxima (kg)";
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(211, 72);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(98, 13);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "Massa Máxima (kg)";
             // 
             // label7
             // 
-            label7.AutoSize = true;
-            label7.Location = new Point(100, 113);
-            label7.Name = "label7";
-            label7.Size = new Size(108, 15);
-            label7.TabIndex = 13;
-            label7.Text = "Massa Mínima (kg)";
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(105, 73);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(97, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Massa Mínima (kg)";
             // 
             // masMax
             // 
-            masMax.Location = new Point(207, 126);
-            masMax.Name = "masMax";
-            masMax.Size = new Size(100, 23);
-            masMax.TabIndex = 7;
-            masMax.Text = "500000";
+            this.masMax.Location = new System.Drawing.Point(212, 86);
+            this.masMax.Name = "masMax";
+            this.masMax.Size = new System.Drawing.Size(100, 20);
+            this.masMax.TabIndex = 7;
+            this.masMax.Text = "500000";
             // 
             // masMin
             // 
-            masMin.Location = new Point(101, 126);
-            masMin.Name = "masMin";
-            masMin.Size = new Size(100, 23);
-            masMin.TabIndex = 6;
-            masMin.Text = "10000";
+            this.masMin.Location = new System.Drawing.Point(106, 86);
+            this.masMin.Name = "masMin";
+            this.masMin.Size = new System.Drawing.Size(100, 20);
+            this.masMin.TabIndex = 6;
+            this.masMin.Text = "10000";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(211, 36);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(53, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Y Máximo";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(105, 36);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 13);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "X Máximo";
+            // 
+            // valYMax
+            // 
+            this.valYMax.Location = new System.Drawing.Point(212, 49);
+            this.valYMax.Name = "valYMax";
+            this.valYMax.Size = new System.Drawing.Size(100, 20);
+            this.valYMax.TabIndex = 5;
+            // 
+            // valXMax
+            // 
+            this.valXMax.Location = new System.Drawing.Point(106, 49);
+            this.valXMax.Name = "valXMax";
+            this.valXMax.Size = new System.Drawing.Size(100, 20);
+            this.valXMax.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(1, 104);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(55, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Execução";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(0, 120);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(206, 23);
+            this.progressBar1.TabIndex = 13;
             // 
             // btn_grava_ini
             // 
-            btn_grava_ini.Location = new Point(313, 96);
-            btn_grava_ini.Name = "btn_grava_ini";
-            btn_grava_ini.Size = new Size(156, 23);
-            btn_grava_ini.TabIndex = 12;
-            btn_grava_ini.Text = "Gravar Configuração Inicial";
-            btn_grava_ini.UseVisualStyleBackColor = true;
-            btn_grava_ini.Click += btn_grava_ini_Click;
+            this.btn_grava_ini.Location = new System.Drawing.Point(350, 70);
+            this.btn_grava_ini.Name = "btn_grava_ini";
+            this.btn_grava_ini.Size = new System.Drawing.Size(156, 23);
+            this.btn_grava_ini.TabIndex = 12;
+            this.btn_grava_ini.Text = "Gravar Configuração Inicial";
+            this.btn_grava_ini.UseVisualStyleBackColor = true;
+            this.btn_grava_ini.Click += new System.EventHandler(this.btn_grava_ini_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(3, 36);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(90, 13);
+            this.label10.TabIndex = 22;
+            this.label10.Text = "Qtd. Corpos Atual";
+            // 
+            // qtdCorposAtual
+            // 
+            this.qtdCorposAtual.Location = new System.Drawing.Point(0, 49);
+            this.qtdCorposAtual.Name = "qtdCorposAtual";
+            this.qtdCorposAtual.Size = new System.Drawing.Size(100, 20);
+            this.qtdCorposAtual.TabIndex = 23;
+            this.qtdCorposAtual.Text = "0";
             // 
             // Form1
             // 
-            ClientSize = new Size(1366, 745);
-            Controls.Add(groupBox1);
-            Name = "Form1";
-            Text = "Universo 2D";
-            Load += Form1_Load;
-            Paint += Form1_Paint;
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
-            ResumeLayout(false);
+            this.ClientSize = new System.Drawing.Size(1366, 745);
+            this.Controls.Add(this.groupBox1);
+            this.Name = "Form1";
+            this.Text = "Universo 2D";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
@@ -243,13 +399,27 @@ namespace Universo2D
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox qtdTempoInterac;
         private System.Windows.Forms.Button btn_executa;
+        private System.Windows.Forms.Button btn_grava;
+        private System.Windows.Forms.Button btn_carrega;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btn_grava_ini;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox valYMax;
+        private System.Windows.Forms.TextBox valXMax;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox masMax;
         private System.Windows.Forms.TextBox masMin;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btn_carregaSimulacao;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtProporcao;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox qtdCorposAtual;
     }

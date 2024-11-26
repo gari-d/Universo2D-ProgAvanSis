@@ -8,17 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Universo2D
 {
 
     public partial class Form1 : Form
     {
-        private Graphics g; // Alterado para privado
+        private Graphics g;
         private Universo2D U, Uinicial;
-        private int numCorpos; // Alterado para privado
-        private int numInterac; // Alterado para privado
-        private int numTempoInterac; // Alterado para privado
+        int numCorpos;
+        int numInterac;
+        int numTempoInterac;
 
 
         public Form1()
@@ -33,11 +34,16 @@ namespace Universo2D
             numCorpos = Convert.ToInt32(qtdCorpos.Text);
             U = new Universo2D();
 
+            progressBar1.Value = 0;
+            xMax = Convert.ToInt32(valXMax.Text);
+            yMax = Convert.ToInt32(valYMax.Text);
             mMin = Convert.ToInt32(masMin.Text);
             mMax = Convert.ToInt32(masMax.Text);
 
+            U.CarregaCorpos(numCorpos, 0, xMax, 0, yMax, mMin, mMax);
+
             Uinicial = new Universo2D();
-            Uinicial.copiaUniverso(U);
+            Uinicial.CopiaUniverso(U);
 
             Form1.ActiveForm.Refresh();
         }
@@ -47,12 +53,15 @@ namespace Universo2D
             numInterac = Convert.ToInt32(qtdInterac.Text);
             numTempoInterac = Convert.ToInt32(qtdTempoInterac.Text);
 
+            progressBar1.Maximum = numInterac;
+            progressBar1.Minimum = 0;
 
-            if (false) //Atualiza Tela
+            if (radioButton1.Checked) //Atualiza Tela
             {
                 for (int i = 0; i <= numInterac; i++)
                 {
-                    U.interacaoCorpos(numTempoInterac);
+                    U.InteracaoCorpos(numTempoInterac);
+                    progressBar1.Value = i;
 
 
                     // Plota os corpos a cada 100 interações
@@ -62,11 +71,12 @@ namespace Universo2D
                     }
                 }
             }
-            else if (false) //Background
+            else if (radioButton2.Checked) //Background
             {
                 for (int i = 0; i <= numInterac; i++)
                 {
-                    U.interacaoCorpos(numTempoInterac);
+                    U.InteracaoCorpos(numTempoInterac);
+                    progressBar1.Value = i;
                 }
 
                 // Plota os corpos ao final das interações
@@ -75,7 +85,7 @@ namespace Universo2D
                     Form1.ActiveForm.Refresh();
                 }
             }
-            else if (false) //Para Arquivo
+            else if (radioButton3.Checked) //Para Arquivo
             {
                 string texto;
                 Corpo cp;
@@ -93,12 +103,13 @@ namespace Universo2D
                     System.IO.StreamWriter sw = new System.IO.StreamWriter(fs);
 
                     // Grava a quantidade total de corpos no Universo e a quantidade de interações
-                    sw.WriteLine(U.qtdCorpos() + ";" + numInterac);
+                    sw.WriteLine(U.QtdCorpos() + ";" + numInterac);
 
                     // Faz as interações
                     for (int i = 0; i <= numInterac; i++)
                     {
-                        U.interacaoCorpos(numTempoInterac);
+                        U.InteracaoCorpos(numTempoInterac);
+                        progressBar1.Value = i;
 
                         // A cada 10 interações, grava a situação dos corpos no arquivo
                         if (i % 10 == 0)
@@ -106,9 +117,9 @@ namespace Universo2D
                             texto = "** Interacao " + i + " ************";
                             sw.WriteLine(texto);
 
-                            for (int j = 0; j < U.qtdCorpos(); j++)
+                            for (int j = 0; j < U.QtdCorpos(); j++)
                             {
-                                cp = U.Corpo(j);
+                                cp = U.GetCorpo(j);
                                 if (cp != null)
                                 {
                                     texto = cp.Nome + ";"
@@ -143,17 +154,29 @@ namespace Universo2D
             double posX = 0, posY = 0;
             int qtdCp;
 
+            if (Form1.ActiveForm != null)
+            {
+
+                if (valXMax.Text == "")
+                {
+                    valXMax.Text = Form1.ActiveForm.Size.Width.ToString();
+                    valYMax.Text = Form1.ActiveForm.Size.Height.ToString();
+                }
+
+                W = Form1.ActiveForm.Size.Width - 50;
+                H = Form1.ActiveForm.Size.Height - 50;
+            }
 
             if (U != null)
             {
                 g = pe.Graphics;
-                qtdCp = U.qtdCorpos();
+                qtdCp = U.QtdCorpos();
 
                 //Calcula a proporção da tela e deslocamento
 
                 for (int i = 0; i < qtdCp; i++)
                 {
-                    cp = U.Corpo(i);
+                    cp = U.GetCorpo(i);
                     if (cp != null)
                     {
                         posX = cp.PosX;
@@ -199,12 +222,13 @@ namespace Universo2D
                     prop = propY;
                 }
 
+                txtProporcao.Text = (1 / prop).ToString();
                 qtdCorposAtual.Text = qtdCp.ToString();
 
                 // Desenha o corpo
                 for (int i = 0; i < qtdCp; i++)
                 {
-                    cp = U.Corpo(i);
+                    cp = U.GetCorpo(i);
                     if (cp != null)
                     {
                         posX = cp.PosX - deslocX;
@@ -221,13 +245,13 @@ namespace Universo2D
                         g.DrawLine(new Pen(Color.FromArgb(0, 0, 255)),
                             (float)(posX) / prop,
                             (float)(posY) / prop,
-                            (float)(posX + (cp.ForcaX() * 50)) / prop,
+                            (float)(posX + (cp.ForcaX * 50)) / prop,
                             (float)(posY) / prop);
                         g.DrawLine(new Pen(Color.FromArgb(0, 0, 255)),
                             (float)posX / prop,
                             (float)posY / prop,
                             (float)(posX) / prop,
-                            (float)(posY + (cp.ForcaY() * 50)) / prop);
+                            (float)(posY + (cp.ForcaY * 50)) / prop);
                     }
                 }
             }
@@ -254,10 +278,10 @@ namespace Universo2D
                     System.IO.FileStream fs = (System.IO.FileStream)saveFileDialog1.OpenFile();
                     System.IO.StreamWriter sw = new System.IO.StreamWriter(fs);
 
-                    sw.WriteLine(U.qtdCorpos());
-                    for (i = 0; i < U.qtdCorpos(); i++)
+                    sw.WriteLine(U.QtdCorpos());
+                    for (i = 0; i < U.QtdCorpos(); i++)
                     {
-                        cp = U.Corpo(i);
+                        cp = U.GetCorpo(i);
                         if (cp != null)
                         {
                             texto = cp.Nome + ";"
@@ -306,10 +330,10 @@ namespace Universo2D
                     System.IO.FileStream fs = (System.IO.FileStream)saveFileDialog1.OpenFile();
                     System.IO.StreamWriter sw = new System.IO.StreamWriter(fs);
 
-                    sw.WriteLine(Uinicial.qtdCorpos());
-                    for (i = 0; i < Uinicial.qtdCorpos(); i++)
+                    sw.WriteLine(Uinicial.QtdCorpos());
+                    for (i = 0; i < Uinicial.QtdCorpos(); i++)
                     {
-                        cp = Uinicial.Corpo(i);
+                        cp = Uinicial.GetCorpo(i);
                         if (cp != null)
                         {
                             texto = cp.Nome + ";"
@@ -368,7 +392,7 @@ namespace Universo2D
                                        Convert.ToDouble(valores[6]),
                                        Convert.ToDouble(valores[7]),
                                        Convert.ToDouble(valores[8]));
-                        U.Corpo(cp, controle - 1);
+                        U.SetCorpo(cp, controle - 1);
                     }
                     else
                     {
@@ -382,9 +406,10 @@ namespace Universo2D
 
                 sr.Close();
 
+                progressBar1.Value = 0;
 
                 Uinicial = new Universo2D();
-                Uinicial.copiaUniverso(U);
+                Uinicial.CopiaUniverso(U);
 
                 Form1.ActiveForm.Refresh();
             }
@@ -422,10 +447,12 @@ namespace Universo2D
 
                 qtdCorpos.Text = valores[0]; // Posição 0 armazena o número de corpos
                 qtdInterac.Text = valores[1]; // Posição 1 armazena a quantidade de interações
+                progressBar1.Maximum = (Convert.ToInt32(qtdInterac.Text) / 10) + 1;
 
                 numCorpos = Convert.ToInt32(qtdCorpos.Text);
 
                 controle = 0;
+                progressBar1.Value = 0;
 
                 while (!sr.EndOfStream)
                 {
@@ -435,6 +462,7 @@ namespace Universo2D
                     if (texto[0] == '*')
                     {
                         controle = 0;
+                        progressBar1.Value++;
 
                         if (Form1.ActiveForm != null)
                         {
@@ -456,7 +484,7 @@ namespace Universo2D
                                        Convert.ToDouble(valores[6]),
                                        Convert.ToDouble(valores[7]),
                                        Convert.ToDouble(valores[8]));
-                        U.Corpo(cp, controle);
+                        U.SetCorpo(cp, controle);
                         controle++;
                     }
                 }
