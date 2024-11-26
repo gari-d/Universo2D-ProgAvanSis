@@ -2,7 +2,7 @@
 
 namespace Universo2D
 {
-    public class Corpo
+    public class Corpo : ICorpo
     {
         public bool EValido { get; set; } = true;
         public string Nome { get; set; } = "";
@@ -39,7 +39,7 @@ namespace Universo2D
 
         public double Raio => Math.Pow((3 * Math.PI * Massa) / (4 * Densidade), 1.0 / 3) / 5;
 
-        public void CopiaCorpo(Corpo cp)
+        public void CopiaCorpo(ICorpo cp)
         {
             Nome = cp.Nome;
             Massa = cp.Massa;
