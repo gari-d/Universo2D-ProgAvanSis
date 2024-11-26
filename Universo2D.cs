@@ -193,8 +193,53 @@ namespace Universo2D
 
         private bool Colisao(Corpo c1, Corpo c2)
         {
-            double d = Distancia(c1, c2);
-            return d <= (c1.Raio + c2.Raio);
+            double Px;
+            double Py;
+            double d;
+            bool teveColisao = false;
+
+            // Colisão somente caso a distância entre os corpos for menor ou igual à soma dos raios
+            if ((Distancia(c1, c2)) <= (c1.Raio + c2.Raio))
+            {
+                // Calcula a quantidade de movimento resultante -> P = m * v
+                teveColisao = true;
+                Px = (c1.Massa * c1.VelX) + (c2.Massa * c2.VelX);
+                Py = (c1.Massa * c1.VelY) + (c2.Massa * c2.VelY);
+
+                // Calcula a densidade resultante
+                d = ((c1.Massa * c1.Densidade + c2.Massa * c2.Densidade) /
+                     (c1.Massa + c2.Massa));
+
+                // Caso haja colisão, o corpo de menor massa será engolido pelo de maior massa.
+                if (c1.Massa >= c2.Massa)
+                {
+                    c1.Nome=(c1.Nome + c2.Nome);
+                    c1.Massa=(c1.Massa + c2.Massa);
+                    c1.Densidade=(d);
+
+                    // Calcula velocidade final do novo corpo
+                    c1.VelX = (Px / c1.Massa);
+                    c1.VelY = (Py / c1.Massa);
+
+                    // Invalida o corpo 2, para retirá-lo da lista
+                    c2.EValido = (false);
+                }
+                else
+                {
+                    c2.Nome=(c2.Nome + c1.Nome);
+                    c2.Massa=(c2.Massa + c1.Massa);
+                    c2.Densidade=(d);
+
+                    // Calcula velocidade final do novo corpo
+                    c2.VelX=(Px / c2.Massa);
+                    c2.VelY=(Py / c2.Massa);
+
+                    // Invalida o corpo 1, para retirá-lo da lista
+                    c1.EValido=(false);
+
+                }
+            }
+            return teveColisao;
         }
 
         private void CalculaVelPosCorpos(int qtdSegundos, Corpo c1)
