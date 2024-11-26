@@ -195,7 +195,6 @@ namespace Universo2D
         {
             double Px;
             double Py;
-            double d;
             bool teveColisao = false;
 
             // Colisão somente caso a distância entre os corpos for menor ou igual à soma dos raios
@@ -206,37 +205,42 @@ namespace Universo2D
                 Px = (c1.Massa * c1.VelX) + (c2.Massa * c2.VelX);
                 Py = (c1.Massa * c1.VelY) + (c2.Massa * c2.VelY);
 
-                // Calcula a densidade resultante
-                d = ((c1.Massa * c1.Densidade + c2.Massa * c2.Densidade) /
-                     (c1.Massa + c2.Massa));
-
                 // Caso haja colisão, o corpo de menor massa será engolido pelo de maior massa.
                 if (c1.Massa >= c2.Massa)
                 {
-                    c1.Nome=(c1.Nome + c2.Nome);
-                    c1.Massa=(c1.Massa + c2.Massa);
-                    c1.Densidade=(d);
+                    // Cria o corpo resultante com a sobrecarga do operador
+                    Corpo resultado = c1 + c2;
 
-                    // Calcula velocidade final do novo corpo
-                    c1.VelX = (Px / c1.Massa);
-                    c1.VelY = (Py / c1.Massa);
+                    // Atualiza c1 com as propriedades do resultado
+                    c1.Nome = resultado.Nome;
+                    c1.Massa = resultado.Massa;
+                    c1.Densidade = resultado.Densidade;
+                    c1.PosX = resultado.PosX;
+                    c1.PosY = resultado.PosY;
+                    c1.PosZ = resultado.PosZ;
+                    c1.VelX = Px / c1.Massa; // Calcula velocidade final
+                    c1.VelY = Py / c1.Massa;
 
                     // Invalida o corpo 2, para retirá-lo da lista
-                    c2.EValido = (false);
+                    c2.EValido = false;
                 }
                 else
                 {
-                    c2.Nome=(c2.Nome + c1.Nome);
-                    c2.Massa=(c2.Massa + c1.Massa);
-                    c2.Densidade=(d);
+                    // Cria o corpo resultante com a sobrecarga do operador
+                    Corpo resultado = c2 + c1;
 
-                    // Calcula velocidade final do novo corpo
-                    c2.VelX=(Px / c2.Massa);
-                    c2.VelY=(Py / c2.Massa);
+                    // Atualiza c2 com as propriedades do resultado
+                    c2.Nome = resultado.Nome;
+                    c2.Massa = resultado.Massa;
+                    c2.Densidade = resultado.Densidade;
+                    c2.PosX = resultado.PosX;
+                    c2.PosY = resultado.PosY;
+                    c2.PosZ = resultado.PosZ;
+                    c2.VelX = Px / c2.Massa; // Calcula velocidade final
+                    c2.VelY = Py / c2.Massa;
 
                     // Invalida o corpo 1, para retirá-lo da lista
-                    c1.EValido=(false);
-
+                    c1.EValido = false;
                 }
             }
             return teveColisao;

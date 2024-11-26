@@ -298,7 +298,7 @@
             // 
             // Form1
             // 
-            this.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(1522, 782);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
