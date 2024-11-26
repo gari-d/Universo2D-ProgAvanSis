@@ -9,7 +9,7 @@ namespace Universo2D
 {
     public class Universo2D : IUniverso2D
     {
-        private ObservableCollection<Corpo> lstCorpos;
+        public ObservableCollection<Corpo> lstCorpos { get;  set; }
         public ObservableCollection<Corpo> GetLstCorpos() { return lstCorpos; }
         public void SetLstCorpos(ObservableCollection<Corpo> lst) { this.lstCorpos = lst; }
 
@@ -34,13 +34,19 @@ namespace Universo2D
 
         public void SetCorpo(Corpo cp, int pos)
         {
-            if (pos < lstCorpos.Count())
+            if (pos >= 0 && pos < lstCorpos.Count)
             {
-                lstCorpos.ElementAt(pos).CopiaCorpo(cp);
+                lstCorpos[pos].CopiaCorpo(cp); // Usa índice direto para simplificar
+            }
+            else if (pos == lstCorpos.Count) // Adiciona no próximo índice disponível
+            {
+                lstCorpos.Add(cp);
             }
             else
             {
-                lstCorpos.Add(cp);
+                // Caso pos seja maior que lstCorpos.Count ou negativo, exiba um erro.
+                throw new ArgumentOutOfRangeException(nameof(pos),
+                    $"Posição inválida: {pos}. Deve estar entre 0 e {lstCorpos.Count}");
             }
         }
 

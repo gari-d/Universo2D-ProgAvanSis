@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.IO;
 
 namespace Universo2D
 {
@@ -20,7 +21,6 @@ namespace Universo2D
         int numCorpos;
         int numInterac;
         int numTempoInterac;
-
 
         public Form1()
         {
@@ -34,9 +34,9 @@ namespace Universo2D
             numCorpos = Convert.ToInt32(qtdCorpos.Text);
             U = new Universo2D();
 
-            progressBar1.Value = 0;
-            xMax = Convert.ToInt32(valXMax.Text);
-            yMax = Convert.ToInt32(valYMax.Text);
+
+            xMax = 1538;
+            yMax = 821;
             mMin = Convert.ToInt32(masMin.Text);
             mMax = Convert.ToInt32(masMax.Text);
 
@@ -53,13 +53,12 @@ namespace Universo2D
             numInterac = Convert.ToInt32(qtdInterac.Text);
             numTempoInterac = Convert.ToInt32(qtdTempoInterac.Text);
 
-            progressBar1.Maximum = numInterac;
-            progressBar1.Minimum = 0;
+
 
             for (int i = 0; i <= numInterac; i++)
             {
                 U.InteracaoCorpos(numTempoInterac);
-                progressBar1.Value = i;
+
 
 
                 // Plota os corpos a cada 100 interações
@@ -70,7 +69,7 @@ namespace Universo2D
             }
         }
 
-            private void Form1_Paint(object sender, System.Windows.Forms.PaintEventArgs pe)
+        private void Form1_Paint(object sender, System.Windows.Forms.PaintEventArgs pe)
         {
             Corpo cp;
             float prop = 1, propX = 1, propY = 1;
@@ -82,12 +81,6 @@ namespace Universo2D
 
             if (Form1.ActiveForm != null)
             {
-
-                if (valXMax.Text == "")
-                {
-                    valXMax.Text = Form1.ActiveForm.Size.Width.ToString();
-                    valYMax.Text = Form1.ActiveForm.Size.Height.ToString();
-                }
 
                 W = Form1.ActiveForm.Size.Width - 50;
                 H = Form1.ActiveForm.Size.Height - 50;
@@ -148,7 +141,6 @@ namespace Universo2D
                     prop = propY;
                 }
 
-                txtProporcao.Text = (1 / prop).ToString();
                 qtdCorposAtual.Text = qtdCp.ToString();
 
                 // Desenha o corpo
@@ -290,56 +282,85 @@ namespace Universo2D
         private void btn_carrega_Click(object sender, EventArgs e)
         {
             string texto;
-            int controle;
+            int controle = 0;
             Corpo cp;
 
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "Arquivos Universo|*.uni|Todos os arquivos|*.*";
-            openFileDialog1.Title = "Abrir arquivo";
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                Filter = "Arquivos Universo|*.uni|Todos os arquivos|*.*",
+                Title = "Abrir arquivo"
+            };
 
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                System.IO.StreamReader sr = new System.IO.StreamReader(openFileDialog1.FileName);
-                controle = 0;
-
-                while (!sr.EndOfStream)
+                using (System.IO.StreamReader sr = new System.IO.StreamReader(openFileDialog1.FileName))
                 {
-                    texto = sr.ReadLine();
-                    if (controle != 0)
+                    // Ler a primeira linha para definir a quantidade de corpos
+                    if (!sr.EndOfStream)
                     {
+                        texto = sr.ReadLine();
+                        if (int.TryParse(texto, out int numCorposLidos))
+                        {
+                            numCorpos = numCorposLidos; // Atualizar a variável global
+                            qtdCorpos.Text = numCorpos.ToString();
+                            U = new Universo2D();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Erro: a primeira linha do arquivo deve conter a quantidade de corpos como um número inteiro.",
+                                "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+
+                    // Ler as demais linhas para criar os corpos
+                    while (!sr.EndOfStream)
+                    {
+                        texto = sr.ReadLine();
                         string[] valores = texto.Split(';');
 
-                        cp = new Corpo(valores[0],
-                                       Convert.ToDouble(valores[1]),
-                                       Convert.ToDouble(valores[2]),
-                                       Convert.ToDouble(valores[3]),
-                                       Convert.ToDouble(valores[4]),
-                                       Convert.ToDouble(valores[5]),
-                                       Convert.ToDouble(valores[6]),
-                                       Convert.ToDouble(valores[7]),
-                                       Convert.ToDouble(valores[8]));
-                        U.SetCorpo(cp, controle - 1);
+                        if (valores.Length == 9) // Verificar o número esperado de valores
+                        {
+                            try
+                            {
+                                // Criar o objeto Corpo com os valores lidos
+                                cp = new Corpo(
+                                    valores[0],
+                                    Convert.ToDouble(valores[1].Replace(',', '.')),
+                                    Convert.ToDouble(valores[2].Replace(',', '.')),
+                                    Convert.ToDouble(valores[3].Replace(',', '.')),
+                                    Convert.ToDouble(valores[4].Replace(',', '.')),
+                                    Convert.ToDouble(valores[5].Replace(',', '.')),
+                                    Convert.ToDouble(valores[6].Replace(',', '.')),
+                                    Convert.ToDouble(valores[7].Replace(',', '.')),
+                                    Convert.ToDouble(valores[8].Replace(',', '.'))
+                                );
+                                U.SetCorpo(cp, controle);
+                                controle++;
+                            }
+                            catch (FormatException ex)
+                            {
+                                MessageBox.Show($"Erro ao processar a linha: {texto}\n{ex.Message}",
+                                    "Erro de Formato", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Linha ignorada: número de valores incorreto.\nLinha: {texto}",
+                                "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
                     }
-                    else
-                    {
-                        qtdCorpos.Text = texto;
-
-                        numCorpos = Convert.ToInt32(qtdCorpos.Text);
-                        U = new Universo2D();
-                    }
-                    controle++;
                 }
 
-                sr.Close();
-
-                progressBar1.Value = 0;
-
+                // Copiar o universo carregado para o universo inicial
                 Uinicial = new Universo2D();
                 Uinicial.CopiaUniverso(U);
 
+                // Atualizar a interface
                 Form1.ActiveForm.Refresh();
             }
         }
+
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
@@ -370,70 +391,88 @@ namespace Universo2D
             int controle;
             Corpo cp;
 
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "Arquivos Universo|*.uni|Todos os arquivos|*.*";
-            openFileDialog1.Title = "Abrir arquivo";
-
-            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
-                System.IO.StreamReader sr = new System.IO.StreamReader(openFileDialog1.FileName);
+                Filter = "Arquivos Universo|*.uni|Todos os arquivos|*.*",
+                Title = "Abrir arquivo"
+            };
 
-                // Le a primeira linah do arquivo, onde está o número inicial de corpos                
-                texto = sr.ReadLine();
-
-                valores = texto.Split(';');
-
-                qtdCorpos.Text = valores[0]; // Posição 0 armazena o número de corpos
-                qtdInterac.Text = valores[1]; // Posição 1 armazena a quantidade de interações
-                progressBar1.Maximum = (Convert.ToInt32(qtdInterac.Text) / 10) + 1;
-
-                numCorpos = Convert.ToInt32(qtdCorpos.Text);
-
-                controle = 0;
-                progressBar1.Value = 0;
-
-                while (!sr.EndOfStream)
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamReader sr = new StreamReader(openFileDialog1.FileName))
                 {
+                    // Lê a primeira linha do arquivo, onde está o número de corpos e interações
                     texto = sr.ReadLine();
+                    valores = texto.Split(';');
 
-                    //Identifica o início da interação
-                    if (texto[0] == '*')
+                    // Carrega as informações da primeira linha
+                    qtdCorpos.Text = valores[0];  // Número de corpos
+
+                    numCorpos = Convert.ToInt32(qtdCorpos.Text);
+                    controle = 0;
+
+                    // Inicializa o objeto U e a lista de corpos
+                    U = new Universo2D();
+                    while (U.lstCorpos.Count < numCorpos)
                     {
-                        controle = 0;
-                        progressBar1.Value++;
-
-                        if (Form1.ActiveForm != null)
-                        {
-                            Form1.ActiveForm.Refresh();
-                        }
-
-                        U = new Universo2D();
+                        U.lstCorpos.Add(new Corpo());
                     }
-                    else // Carrega uma interação
-                    {
-                        valores = texto.Split(';');
 
-                        cp = new Corpo(valores[0],
-                                       Convert.ToDouble(valores[1]),
-                                       Convert.ToDouble(valores[2]),
-                                       Convert.ToDouble(valores[3]),
-                                       Convert.ToDouble(valores[4]),
-                                       Convert.ToDouble(valores[5]),
-                                       Convert.ToDouble(valores[6]),
-                                       Convert.ToDouble(valores[7]),
-                                       Convert.ToDouble(valores[8]));
-                        U.SetCorpo(cp, controle);
-                        controle++;
+                    // Lê as interações (corpos) a partir da segunda linha
+                    while (!sr.EndOfStream)
+                    {
+                        texto = sr.ReadLine();
+
+                        // Verifica se a linha começa com '*', indicando uma nova interação
+                        if (texto[0] == '*')
+                        {
+                            controle = 0;
+                            if (ActiveForm != null)
+                            {
+                                ActiveForm.Refresh();
+                            }
+
+                            U = new Universo2D();
+
+                            // Reinicializa a lista de corpos para a nova interação
+                            while (U.lstCorpos.Count < numCorpos)
+                            {
+                                U.lstCorpos.Add(new Corpo());
+                            }
+                        }
+                        else // Carrega os corpos a partir da segunda linha
+                        {
+                            valores = texto.Split(';');
+
+                            if (controle >= numCorpos)
+                            {
+                                MessageBox.Show("Número de corpos no arquivo excede o esperado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+                            }
+
+                            // Criação e adição de um corpo na lista
+                            cp = new Corpo(valores[0],
+                                           Convert.ToDouble(valores[1]),
+                                           Convert.ToDouble(valores[2]),
+                                           Convert.ToDouble(valores[3]),
+                                           Convert.ToDouble(valores[4]),
+                                           Convert.ToDouble(valores[5]),
+                                           Convert.ToDouble(valores[6]),
+                                           Convert.ToDouble(valores[7]),
+                                           Convert.ToDouble(valores[8]));
+                            U.SetCorpo(cp, controle); // Atualiza o corpo na posição controle
+                            controle++;
+                        }
                     }
                 }
 
-                sr.Close();
-
-                if (Form1.ActiveForm != null)
+                if (ActiveForm != null)
                 {
-                    Form1.ActiveForm.Refresh();
+                    ActiveForm.Refresh();
                 }
             }
         }
+
+
     }
 }
