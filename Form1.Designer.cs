@@ -62,7 +62,7 @@
             this.btn_aleatorio.Name = "btn_aleatorio";
             this.btn_aleatorio.Size = new System.Drawing.Size(75, 23);
             this.btn_aleatorio.TabIndex = 8;
-            this.btn_aleatorio.Text = "Aleatório";
+            this.btn_aleatorio.Text = "Distribuir";
             this.btn_aleatorio.UseVisualStyleBackColor = true;
             this.btn_aleatorio.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -73,7 +73,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(63, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Qtd. Corpos";
+            this.label2.Text = "Nº de Corpos";
             // 
             // qtdCorpos
             // 
@@ -81,7 +81,7 @@
             this.qtdCorpos.Name = "qtdCorpos";
             this.qtdCorpos.Size = new System.Drawing.Size(100, 20);
             this.qtdCorpos.TabIndex = 1;
-            this.qtdCorpos.Text = "0";
+            this.qtdCorpos.Text = "250";
             // 
             // qtdInterac
             // 
@@ -89,7 +89,7 @@
             this.qtdInterac.Name = "qtdInterac";
             this.qtdInterac.Size = new System.Drawing.Size(100, 20);
             this.qtdInterac.TabIndex = 2;
-            this.qtdInterac.Text = "0";
+            this.qtdInterac.Text = "100000";
             // 
             // label4
             // 
@@ -98,7 +98,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(85, 13);
             this.label4.TabIndex = 6;
-            this.label4.Text = "Num. Interações";
+            this.label4.Text = "Nº de Interações";
             // 
             // label5
             // 
@@ -115,7 +115,7 @@
             this.qtdTempoInterac.Name = "qtdTempoInterac";
             this.qtdTempoInterac.Size = new System.Drawing.Size(100, 20);
             this.qtdTempoInterac.TabIndex = 3;
-            this.qtdTempoInterac.Text = "0";
+            this.qtdTempoInterac.Text = "50";
             // 
             // btn_executa
             // 
@@ -123,7 +123,7 @@
             this.btn_executa.Name = "btn_executa";
             this.btn_executa.Size = new System.Drawing.Size(75, 23);
             this.btn_executa.TabIndex = 9;
-            this.btn_executa.Text = "Executar";
+            this.btn_executa.Text = "Iniciar";
             this.btn_executa.UseVisualStyleBackColor = true;
             this.btn_executa.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -168,7 +168,7 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(90, 13);
             this.label10.TabIndex = 22;
-            this.label10.Text = "Qtd. Corpos Atual";
+            this.label10.Text = "Corpos Atuais";
             // 
             // qtdCorposAtual
             // 
@@ -185,7 +185,7 @@
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(56, 13);
             this.label9.TabIndex = 21;
-            this.label9.Text = "Proporção";
+            this.label9.Text = "Proporção da tela";
             // 
             // txtProporcao
             // 
@@ -200,7 +200,7 @@
             this.btn_carregaSimulacao.Name = "btn_carregaSimulacao";
             this.btn_carregaSimulacao.Size = new System.Drawing.Size(156, 23);
             this.btn_carregaSimulacao.TabIndex = 13;
-            this.btn_carregaSimulacao.Text = "Carregar Simulação";
+            this.btn_carregaSimulacao.Text = "Carregar Arquivo";
             this.btn_carregaSimulacao.UseVisualStyleBackColor = true;
             this.btn_carregaSimulacao.Click += new System.EventHandler(this.btn_carregaSimulacao_Click);
             // 
@@ -226,7 +226,7 @@
             this.btn_grava_ini.Name = "btn_grava_ini";
             this.btn_grava_ini.Size = new System.Drawing.Size(156, 23);
             this.btn_grava_ini.TabIndex = 12;
-            this.btn_grava_ini.Text = "Gravar Configuração Inicial";
+            this.btn_grava_ini.Text = "Gravar Configuração";
             this.btn_grava_ini.UseVisualStyleBackColor = true;
             this.btn_grava_ini.Click += new System.EventHandler(this.btn_grava_ini_Click);
             // 

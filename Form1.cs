@@ -348,7 +348,19 @@ namespace Universo2D
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // Alterando a cor de fundo do Form
+            this.BackColor = Color.LightSkyBlue;
 
+            // Personalizando a label
+            label2.ForeColor = Color.Black;
+            label2.Font = new Font("Arial", 10);
+
+            // Personalizando o botão
+            btn_aleatorio.ForeColor = Color.DarkSlateGray;
+            btn_aleatorio.Font = new Font("Arial", 10);
+
+
+            groupBox1.ForeColor = Color.Black;
         }
 
         private void btn_carregaSimulacao_Click(object sender, EventArgs e)

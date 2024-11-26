@@ -71,31 +71,39 @@ namespace Universo2D
         {
             bool teveColisao = false;
             ZeraForcas();
-            for (int i = 0; i < QtdCorpos() - 1; i++)
+
+            // Paraleliza os cálculos de força gravitacional
+            Parallel.For(0, QtdCorpos() - 1, i =>
             {
                 for (int j = i + 1; j < QtdCorpos(); j++)
                 {
-                    if (Colisao(lstCorpos.ElementAt(i), lstCorpos.ElementAt(j)))
+                    if (Colisao(lstCorpos[i], lstCorpos[j]))
                     {
-                        teveColisao = true;
+                        lock (lstCorpos) // Evita problemas com acesso simultâneo
+                        {
+                            teveColisao = true;
+                        }
                     }
                 }
-            }
+            });
 
             if (teveColisao)
             {
                 OrganizaUniverso();
             }
 
-            for (int i = 0; i < QtdCorpos() - 1; i++)
+            // Paraleliza o cálculo de velocidades e posições
+            Parallel.For(0, QtdCorpos(), i =>
             {
-                for (int j = i + 1; j < QtdCorpos(); j++)
+                for (int j = 0; j < QtdCorpos(); j++)
                 {
-                    ForcaG(lstCorpos.ElementAt(i), lstCorpos.ElementAt(j));
+                    if (i != j)
+                    {
+                        ForcaG(lstCorpos[i], lstCorpos[j]);
+                    }
                 }
-                CalculaVelPosCorpos(qtdSegundos, lstCorpos.ElementAt(i));
-            }
-            CalculaVelPosCorpos(qtdSegundos, lstCorpos.ElementAt(QtdCorpos() - 1));
+                CalculaVelPosCorpos(qtdSegundos, lstCorpos[i]);
+            });
         }
 
         public void InteracaoCorpos(int qtdInteracoes, int qtdSegundos)
@@ -104,26 +112,36 @@ namespace Universo2D
             {
                 bool teveColisao = false;
                 ZeraForcas();
-                for (int i = 0; i < QtdCorpos() - 1; i++)
+
+                // Paraleliza os cálculos de força gravitacional
+                Parallel.For(0, QtdCorpos() - 1, i =>
                 {
                     for (int j = i + 1; j < QtdCorpos(); j++)
                     {
                         ForcaG(lstCorpos[i], lstCorpos[j]);
                     }
-                    CalculaVelPosCorpos(qtdSegundos, lstCorpos[i]);
-                }
-                CalculaVelPosCorpos(qtdSegundos, lstCorpos[QtdCorpos() - 1]);
+                });
 
-                for (int i = 0; i < QtdCorpos() - 1; i++)
+                // Paraleliza a atualização de posições
+                Parallel.For(0, QtdCorpos(), i =>
+                {
+                    CalculaVelPosCorpos(qtdSegundos, lstCorpos[i]);
+                });
+
+                // Verifica colisões
+                Parallel.For(0, QtdCorpos() - 1, i =>
                 {
                     for (int j = i + 1; j < QtdCorpos(); j++)
                     {
                         if (Colisao(lstCorpos[i], lstCorpos[j]))
                         {
-                            teveColisao = true;
+                            lock (lstCorpos) // Proteção contra concorrência
+                            {
+                                teveColisao = true;
+                            }
                         }
                     }
-                }
+                });
 
                 if (teveColisao)
                 {
@@ -133,6 +151,8 @@ namespace Universo2D
                 qtdInteracoes--;
             }
         }
+    
+
 
         public void CopiaUniverso(IUniverso2D u)
         {
