@@ -56,95 +56,21 @@ namespace Universo2D
             progressBar1.Maximum = numInterac;
             progressBar1.Minimum = 0;
 
-            if (radioButton1.Checked) //Atualiza Tela
+            for (int i = 0; i <= numInterac; i++)
             {
-                for (int i = 0; i <= numInterac; i++)
-                {
-                    U.InteracaoCorpos(numTempoInterac);
-                    progressBar1.Value = i;
+                U.InteracaoCorpos(numTempoInterac);
+                progressBar1.Value = i;
 
 
-                    // Plota os corpos a cada 100 interações
-                    if ((i % 100 == 0) && (Form1.ActiveForm != null))
-                    {
-                        Form1.ActiveForm.Refresh();
-                    }
-                }
-            }
-            else if (radioButton2.Checked) //Background
-            {
-                for (int i = 0; i <= numInterac; i++)
-                {
-                    U.InteracaoCorpos(numTempoInterac);
-                    progressBar1.Value = i;
-                }
-
-                // Plota os corpos ao final das interações
-                if (Form1.ActiveForm != null)
+                // Plota os corpos a cada 100 interações
+                if ((i % 100 == 0) && (Form1.ActiveForm != null))
                 {
                     Form1.ActiveForm.Refresh();
                 }
             }
-            else if (radioButton3.Checked) //Para Arquivo
-            {
-                string texto;
-                Corpo cp;
-
-                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-                saveFileDialog1.Filter = "Arquivos Universo|*.uni|Todos os arquivos|*.*";
-                saveFileDialog1.Title = "Salvar arquivo";
-                saveFileDialog1.ShowDialog();
-
-                // If the file name is not an empty string open it for saving.
-                if (saveFileDialog1.FileName != "")
-                {
-                    // Saves the Image via a FileStream created by the OpenFile method.
-                    System.IO.FileStream fs = (System.IO.FileStream)saveFileDialog1.OpenFile();
-                    System.IO.StreamWriter sw = new System.IO.StreamWriter(fs);
-
-                    // Grava a quantidade total de corpos no Universo e a quantidade de interações
-                    sw.WriteLine(U.QtdCorpos() + ";" + numInterac);
-
-                    // Faz as interações
-                    for (int i = 0; i <= numInterac; i++)
-                    {
-                        U.InteracaoCorpos(numTempoInterac);
-                        progressBar1.Value = i;
-
-                        // A cada 10 interações, grava a situação dos corpos no arquivo
-                        if (i % 10 == 0)
-                        {
-                            texto = "** Interacao " + i + " ************";
-                            sw.WriteLine(texto);
-
-                            for (int j = 0; j < U.QtdCorpos(); j++)
-                            {
-                                cp = U.GetCorpo(j);
-                                if (cp != null)
-                                {
-                                    texto = cp.Nome + ";"
-                                            + cp.Massa + ";"
-                                            + cp.PosX + ";"
-                                            + cp.PosY + ";"
-                                            + cp.PosZ + ";"
-                                            + cp.VelX + ";"
-                                            + cp.VelY + ";"
-                                            + cp.VelZ + ";"
-                                            + cp.Densidade;
-
-                                    sw.WriteLine(texto);
-                                }
-                            }
-                        }
-                    }
-
-                    sw.Close();
-                    fs.Close();
-                }
-            }
         }
 
-        private void Form1_Paint(object sender, System.Windows.Forms.PaintEventArgs pe)
+            private void Form1_Paint(object sender, System.Windows.Forms.PaintEventArgs pe)
         {
             Corpo cp;
             float prop = 1, propX = 1, propY = 1;
